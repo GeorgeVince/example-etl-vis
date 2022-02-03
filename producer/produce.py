@@ -11,7 +11,7 @@ def main() -> None:
         p = Purchase(
             purchase_id="UUID1",
             stock_code=5,
-            item_description="123",
+            item_description="Product FOUR",
             quantity=10,
             customer_id=1,
             cost=1,

@@ -29,7 +29,7 @@ class Sales(Document):
 
 
 def fetch_counts_per_product_id() -> pd.DataFrame:
-    pipeline = [{"$sortByCount": "$stock_code"}]
+    pipeline = [{"$sortByCount": "$item_description"}]
     count_by_product = Sales.objects().aggregate(pipeline)
     rows = [_ for _ in count_by_product]
     if not rows:
