@@ -18,4 +18,20 @@ Fancied learning some new tech, so this gave me an exposure to the following
 
 ##### Deployment
 
-tbc
+```
+docker compose up -d
+```
+
+##### Start a producer
+```
+pip install requests
+python -m producer.py
+```
+
+##### TODO
+- [x] Inital local working version 
+- [x] Dockerise  Kafka
+- [ ] Dockerise PySpark
+- [ ] Dockerise Streamlit
+- [ ] Docker Compose
+- [ ] End to End Test
