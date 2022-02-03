@@ -31,7 +31,7 @@ python -m producer.py
 ##### TODO
 - [x] Inital local working version 
 - [x] Dockerise  Kafka
-- [ ] Dockerise PySpark
+- [x] Dockerise PySpark
 - [ ] Dockerise Streamlit
 - [ ] Docker Compose
 - [ ] End to End Test
