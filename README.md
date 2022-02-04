@@ -33,6 +33,6 @@ python -m producer.py
 - [x] Dockerise Kafka
 - [x] Dockerise PySpark
 - [x] Dockerise Streamlit
-- [ ] Dockerise FastAPI
+- [x] Dockerise FastAPI
 - [ ] Docker Compose
 - [ ] End to End Test
