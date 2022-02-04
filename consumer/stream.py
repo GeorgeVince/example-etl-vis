@@ -14,14 +14,24 @@ from pyspark.sql.types import (
 from dotenv import load_dotenv
 load_dotenv()
 
-MONGO_INPUT_URI = os.getenv("MONGO_INPUT_URI")
-MONGO_OUTPUT_URI = os.getenv("MONGO_OUTPUT_URI")
-MONGO_SPARK_PACKAGE = os.getenv("MONGO_SPARK_PACKAGE")
-MONGO_DB = os.getenv("MONGO_DB")
-MONGO_COLLECTION = os.getenv("MONGO_COLLECTION")
+MONGO_INPUT_URI = os.getenv("MONGO_INPUT_URI","mongodb://localhost:27017")
+MONGO_OUTPUT_URI = os.getenv("MONGO_OUTPUT_URI", "mongodb://localhost:27017")
+MONGO_SPARK_PACKAGE = os.getenv("MONGO_SPARK_PACKAGE","org.mongodb.spark:mongo-spark-connector_2.12:3.0.1")
+MONGO_DB = os.getenv("MONGO_DB","company_one")
+MONGO_COLLECTION = os.getenv("MONGO_COLLECTION", "sales")
 KAFKA_SPARK_PACKAGE = os.getenv("KAFKA_SPARK_PACKAGE")
 KAFKA_BOOTSTRAP_SERVER = os.getenv("KAFKA_BOOTSTRAP_SERVER")
 KAFKA_TOPIC_NAME = os.getenv("KAFKA_TOPIC_NAME")
+
+MONGO_INPUT_URI="mongodb://localhost:27017"
+MONGO_OUTPUT_URI="mongodb://localhost:27017"
+MONGO_DB="company_one"
+MONGO_COLLECTION="sales"
+MONGO_SPARK_PACKAGE="org.mongodb.spark:mongo-spark-connector_2.12:3.0.1"
+
+KAFKA_SPARK_PACKAGE="org.apache.spark:spark-sql-kafka-0-10_2.12:3.2.1"
+KAFKA_BOOTSTRAP_SERVER="localhost:9092"
+KAFKA_TOPIC_NAME="sales"
 
 purchase_schema = StructType(
     [

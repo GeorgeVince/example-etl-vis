@@ -36,3 +36,7 @@ python -m producer.py
 - [x] Dockerise FastAPI
 - [ ] Docker Compose
 - [ ] End to End Test
+
+##### Wip:
+DC -> Need to start kafka containers once kafka up and running, possibly using kafkacat?
+docker run -it --network=host edenhill/kcat:1.7.1 -b localhost:9092 -L

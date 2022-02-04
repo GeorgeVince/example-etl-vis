@@ -1,5 +1,4 @@
 FROM ubuntu:focal
-LABEL maintainer="masroorh"
 
 # Turns off buffering for easier container logging
 ENV PYTHONUNBUFFERED=1

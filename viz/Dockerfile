@@ -7,6 +7,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # Turns off buffering for easier container logging
 ENV PYTHONUNBUFFERED=1
 
+
 RUN apt-get update -y
 RUN apt-get install -y gcc
 
@@ -17,6 +18,9 @@ RUN python -m pip install -r requirements.txt
 WORKDIR /app
 COPY . /app
 
-EXPOSE 8501
+RUN apt-get install -y curl
+RUN curl https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh > wait-for-it.sh
+RUN chmod +x wait-for-it.sh
+
 
 CMD ["streamlit", "run", "app.py"]

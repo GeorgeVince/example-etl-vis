@@ -12,10 +12,9 @@ import streamlit as st
 import os
 
 from dotenv import load_dotenv
-
 load_dotenv()
 
-DB_NAME = os.getenv("DB_NAME")
+MONGO_HOST = os.getenv("MONGO_HOST", "mongodb://127.0.0.1:27017/company_one")
 
 
 class Sales(Document):
@@ -81,7 +80,7 @@ class NoDataException(Exception):
 
 
 def main() -> None:
-    connect(DB_NAME)
+    connect(host=MONGO_HOST)
 
     st.header("Company X Live Sales!")
     placeholder_bar = st.empty()
