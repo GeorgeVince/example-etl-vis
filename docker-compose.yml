@@ -22,52 +22,60 @@ services:
             KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
             KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
             KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
-    # mongo:
-    #     image: mongo:latest
-    #     container_name: mongo
-    #     ports:
-    #         - "27017:27017"
-    #     environment:
-    #         MONGO_INITDB_ROOT_USERNAME: root
-    #         MONGO_INITDB_ROOT_PASSWORD: example
-    # fastapi:
-    #     container_name: fastapi
-    #     build:
-    #         context: ./producer
-    #     ports:
-    #         - "80:80"
-    #     environment:
-    #         KAFKA_BOOTSTRAP_SERVER: kafka:9092
-    #     depends_on:
-    #         - "kafka"
+    mongo:
+        image: mongo:latest
+        container_name: mongo
+        ports:
+            - "27017:27017"
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: example
+    fastapi:
+        container_name: fastapi
+        build:
+            context: ./
+            dockerfile: ./producer/Dockerfile
+        ports:
+            - "80:80"
+        environment:
+            KAFKA_BOOTSTRAP_SERVER: kafka:29092
+        depends_on:
+            - "kafka"
+        command: >
+            bash -c "python kafka-wait.py && uvicorn main:app --host 0.0.0.0 --port 80"
 
-    # streamlit:
-    #     container_name: streamlit
-    #     build:
-    #         context: ./viz
-    #     ports: 
-    #         - "8501:8501"
-    #     environment:
-    #         MONGO_HOST: "mongodb://root:example@mongo:27017/company_one?authSource=admin"
-    #     depends_on:
-    #         - "mongo"
-    #     command: ["./wait-for-it.sh", "mongo:27017", "--", "streamlit", "run", "app.py"]
+
+    streamlit:
+        container_name: streamlit
+        build:
+            context: ./viz
+        ports: 
+            - "8501:8501"
+        environment:
+            MONGO_HOST: "mongodb://root:example@mongo:27017/company_one?authSource=admin"
+        depends_on:
+            - "mongo"
+        command: ["./wait-for-it.sh", "mongo:27017", "--", "streamlit", "run", "app.py"]
         
-    # spark:
-    #     container_name: spark
-    #     build:
-    #         context: ./consumer
-    #     environment:
-    #         MONGO_INPUT_URI: mongodb://mongo:27017
-    #         MONGO_OUTPUT_URI: mongodb://mongo:27017
-    #         MONGO_DB: company_one
-    #         MONGO_COLLECTION: sales
-    #         MONGO_SPARK_PACKAGE: org.mongodb.spark:mongo-spark-connector_2.12:3.0.1
-    #         KAFKA_SPARK_PACKAGE: org.apache.spark:spark-sql-kafka-0-10_2.12:3.2.1
-    #         KAFKA_BOOTSTRAP_SERVER: kafka:9092
-    #         KAFKA_TOPIC_NAME: sales
-    #     depends_on:
-    #         - "kafka"
+    spark:
+        container_name: spark
+        build:
+            context: ./
+            dockerfile: ./consumer/Dockerfile
+        environment:
+            MONGO_INPUT_URI: mongodb://root:example@mongo:27017/company_one?authSource=admin
+            MONGO_OUTPUT_URI: mongodb://root:example@mongo:27017/company_one?authSource=admin
+            MONGO_DB: company_one
+            MONGO_COLLECTION: sales
+            MONGO_SPARK_PACKAGE: org.mongodb.spark:mongo-spark-connector_2.12:3.0.1
+            KAFKA_SPARK_PACKAGE: org.apache.spark:spark-sql-kafka-0-10_2.12:3.2.1
+            KAFKA_BOOTSTRAP_SERVER: kafka:29092
+            KAFKA_TOPIC_NAME: sales
+        depends_on:
+            - "kafka"
+        command: >
+            bash -c "python kafka-wait.py && python ./stream.py"
+
 
     
             

@@ -56,8 +56,9 @@ def generate() -> List[Purchase]:
 def post_purchases(purchases: List[Purchase]):
     for purchase in purchases:
         try:
-            requests.post("http://127.0.0.1:8000/produce/sales", json=asdict(purchase))
-        except requests.exceptions.ConnectionError:
+            requests.post("http://127.0.0.1:80/produce/sales", json=asdict(purchase))
+        except requests.exceptions.ConnectionError as e:
+            print(e)
             # We don't care...
             return
     print(f"Sent {len(purchases)} purchases to Kafka...")
@@ -69,6 +70,7 @@ def main() -> None:
         purchases = generate()
         post_purchases(purchases)
         sleep(0.5)
+        return
 
 
 if __name__ == "__main__":

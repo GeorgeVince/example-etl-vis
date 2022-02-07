@@ -20,6 +20,7 @@ app = FastAPI()
 
 @app.on_event("startup")
 async def start_kafka() -> None:
+    print(f"Connecting to {KAFKA_BOOTSTRAP_SERVER}")
     try:
         await producer.start()
     except KafkaConnectionError:

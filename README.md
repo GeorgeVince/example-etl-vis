@@ -22,6 +22,9 @@ Fancied learning some new tech, so this gave me an exposure to the following
 docker compose up -d
 ```
 
+This will spin up a Flask api on port `80`, the `produce.py` submits some data via `http://127.0.0.1:80/produce/sales` end point.
+View the live streamlit dashboard at `http://127.0.0.1:8051`
+
 ##### Start a producer
 ```
 pip install requests
@@ -34,9 +37,5 @@ python -m producer.py
 - [x] Dockerise PySpark
 - [x] Dockerise Streamlit
 - [x] Dockerise FastAPI
-- [ ] Docker Compose
+- [x] Docker Compose
 - [ ] End to End Test
-
-##### Wip:
-DC -> Need to start kafka containers once kafka up and running, possibly using kafkacat?
-docker run -it --network=host edenhill/kcat:1.7.1 -b localhost:9092 -L
