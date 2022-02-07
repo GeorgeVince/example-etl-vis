@@ -1,3 +1,5 @@
+''' Uses kafkacat: https://github.com/edenhill/kcat to see if Kafka is ready'''
+
 import os
 import subprocess
 import time
