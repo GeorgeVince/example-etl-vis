@@ -39,6 +39,7 @@ python -m producer.py
 - [x] Dockerise FastAPI
 - [x] Docker Compose
 - [ ] End to End Test
+- [ ] Deploy AWS
 
 #### Notes
 When builidng images for `consumer` and `producer` set the context to root dir, this allows us to use the `scripts/kafka-wait.py` script.
